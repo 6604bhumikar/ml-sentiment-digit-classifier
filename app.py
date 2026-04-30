@@ -107,6 +107,10 @@ st.markdown(
         font-size: 0.94rem;
         gap: 24px;
     }
+    .nav-links a, .nav-actions a, .hero-button {
+        color: inherit;
+        text-decoration: none;
+    }
     .nav-actions {
         align-items: center;
         display: flex;
@@ -125,6 +129,10 @@ st.markdown(
         background: #00d084;
         color: #07130d;
         font-weight: 700;
+    }
+    .section-anchor {
+        position: relative;
+        top: -90px;
     }
     .hero {
         background: transparent;
@@ -483,22 +491,23 @@ st.markdown(
     <header class="top-nav">
         <div class="brand"><span class="brand-mark"></span>InsightPulse</div>
         <nav class="nav-links">
-            <span>Product</span>
-            <span>AI Solutions</span>
-            <span>Use Cases</span>
-            <span>Pricing</span>
-            <span>Resources</span>
+            <a href="#product">Product</a>
+            <a href="#solutions">AI Solutions</a>
+            <a href="#use-cases">Use Cases</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#resources">Resources</a>
         </nav>
         <div class="nav-actions">
             <span>EN</span>
-            <span class="login-pill">Login</span>
-            <span class="trial-pill">Start Trial</span>
+            <a class="login-pill" href="#analyzer">Open App</a>
+            <a class="trial-pill" href="#analyzer">Start Analysis</a>
         </div>
     </header>
+    <span id="product" class="section-anchor"></span>
     <section class="hero">
         <h1>AI-Driven Sentiment Intelligence</h1>
         <p>Monitor feedback, understand audience mood, protect your reputation, and turn customer language into clear business decisions.</p>
-        <span class="hero-button">TRY THE ANALYZER</span>
+        <a class="hero-button" href="#analyzer">TRY THE LIVE ANALYZER</a>
     </section>
     <div class="illustration-row">
         <div class="illustration-card">
@@ -542,6 +551,7 @@ st.markdown(f'<div class="status-box">{engine_status_text()}</div>', unsafe_allo
 
 st.markdown(
     """
+    <span id="solutions" class="section-anchor"></span>
     <section class="section">
         <h2>How can teams benefit from sentiment intelligence?</h2>
         <div class="benefit-grid">
@@ -550,6 +560,7 @@ st.markdown(
             <div class="benefit"><h3>Improve Service</h3><p>Give support teams a simple signal for urgency, confidence, and common complaint patterns.</p></div>
         </div>
     </section>
+    <span id="use-cases" class="section-anchor"></span>
     <section class="section two-col">
         <div>
             <h2>How does it work?</h2>
@@ -571,10 +582,29 @@ st.markdown(
             </div>
         </div>
     </section>
+    <span id="pricing" class="section-anchor"></span>
+    <section class="section">
+        <h2>Simple project plan</h2>
+        <div class="benefit-grid">
+            <div class="benefit"><h3>Live Preview</h3><p>Included now: real-time review analysis, image upload workflow, dashboard metrics, and charts.</p></div>
+            <div class="benefit"><h3>Model Upgrade</h3><p>Connect trained TensorFlow artifacts later to replace the lightweight cloud-safe analysis engine.</p></div>
+            <div class="benefit"><h3>Report Ready</h3><p>Use the dashboard sections to present the product, workflow, and live analyzer in one page.</p></div>
+        </div>
+    </section>
+    <span id="resources" class="section-anchor"></span>
+    <section class="section">
+        <h2>Resources</h2>
+        <div class="benefit-grid">
+            <div class="benefit"><h3>Sentiment Signals</h3><p>Positive, negative, and neutral outcomes are shown with confidence and keyword evidence.</p></div>
+            <div class="benefit"><h3>Image Signals</h3><p>Digit uploads produce a prediction chart plus ink density, contrast, and center-balance metrics.</p></div>
+            <div class="benefit"><h3>Deployment</h3><p>The app is live on Streamlit Cloud and updates automatically from the GitHub repository.</p></div>
+        </div>
+    </section>
     """,
     unsafe_allow_html=True,
 )
 
+st.markdown('<span id="analyzer" class="section-anchor"></span>', unsafe_allow_html=True)
 overview_tab, sentiment_tab, digit_tab = st.tabs(["Product Overview", "Sentiment Analyzer", "Digit Classifier"])
 
 with overview_tab:
@@ -610,37 +640,36 @@ with overview_tab:
 
 with sentiment_tab:
     st.subheader("Review Sentiment Analyzer")
-    st.write("Paste a customer or movie review to classify mood, confidence, important words, and follow-up priority.")
+    st.write("Paste a customer or movie review. The result updates immediately as the text changes.")
     review = st.text_area(
         "Review text",
         value="The movie was exciting, beautiful, and really fun to watch!",
         height=150,
     )
 
-    if st.button("Analyze Review", type="primary"):
-        if not review.strip():
-            st.warning("Please enter a review.")
-        else:
-            result = analyze_sentiment(review)
-            col1, col2, col3 = st.columns(3)
-            col1.metric("Sentiment", str(result["label"]))
-            col2.metric("Confidence", f"{result['confidence']:.1%}")
-            col3.metric("Priority", str(result["urgency"]))
+    if not review.strip():
+        st.warning("Please enter a review.")
+    else:
+        result = analyze_sentiment(review)
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Sentiment", str(result["label"]))
+        col2.metric("Confidence", f"{result['confidence']:.1%}")
+        col3.metric("Priority", str(result["urgency"]))
 
-            chart = pd.DataFrame(
-                {
-                    "signal": ["Positive signal", "Negative signal"],
-                    "score": [len(result["positive_hits"]), len(result["negative_hits"])],
-                }
-            )
-            st.bar_chart(chart, x="signal", y="score")
+        chart = pd.DataFrame(
+            {
+                "signal": ["Positive signal", "Negative signal"],
+                "score": [len(result["positive_hits"]), len(result["negative_hits"])],
+            }
+        )
+        st.bar_chart(chart, x="signal", y="score")
 
-            st.write(result["recommendation"])
-            st.caption(f"Engine: {result['engine']} | Word count: {result['word_count']}")
-            with st.expander("Prepared text and keyword signals"):
-                st.write(result["cleaned"])
-                st.write("Positive words:", ", ".join(result["positive_hits"]) or "None detected")
-                st.write("Negative words:", ", ".join(result["negative_hits"]) or "None detected")
+        st.write(result["recommendation"])
+        st.caption(f"Engine: {result['engine']} | Word count: {result['word_count']}")
+        with st.expander("Prepared text and keyword signals"):
+            st.write(result["cleaned"])
+            st.write("Positive words:", ", ".join(result["positive_hits"]) or "None detected")
+            st.write("Negative words:", ", ".join(result["negative_hits"]) or "None detected")
 
 with digit_tab:
     st.subheader("Handwritten Digit Recognition")
