@@ -1,0 +1,5 @@
+﻿kagglehub
+tensorflow
+pandas
+scikit-learn
+pillow
