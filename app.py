@@ -37,7 +37,7 @@ NEGATIVE_WORDS = {
     "sad", "slow", "terrible", "unclear", "unhappy", "waste", "weak", "worst",
 }
 
-st.set_page_config(page_title="Smart Review and Digit Recognition Studio", layout="wide")
+st.set_page_config(page_title="InsightPulse AI", layout="wide")
 
 st.markdown(
     """
@@ -58,28 +58,104 @@ st.markdown(
             linear-gradient(135deg, #fffaf2 0%, #eef8ff 45%, #fff3f7 100%);
     }
     .block-container {
-        max-width: 1180px;
-        padding-top: 2.1rem;
+        max-width: 1220px;
+        padding-top: 1.2rem;
+    }
+    .top-nav {
+        align-items: center;
+        background: rgba(255,255,255,0.88);
+        border: 1px solid rgba(19,34,56,0.08);
+        border-radius: 16px;
+        box-shadow: 0 10px 28px rgba(19,34,56,0.08);
+        display: flex;
+        gap: 24px;
+        justify-content: space-between;
+        margin-bottom: 52px;
+        padding: 15px 20px;
+    }
+    .brand {
+        align-items: center;
+        color: #111827;
+        display: flex;
+        font-size: 1.45rem;
+        font-weight: 900;
+        letter-spacing: 0;
+    }
+    .brand-mark {
+        background: linear-gradient(135deg, #00d084, #2563eb);
+        border-radius: 8px;
+        display: inline-block;
+        height: 28px;
+        margin-right: 10px;
+        position: relative;
+        width: 28px;
+    }
+    .brand-mark:after {
+        background: white;
+        border-radius: 3px;
+        content: "";
+        height: 12px;
+        left: 8px;
+        position: absolute;
+        top: 8px;
+        width: 12px;
+    }
+    .nav-links {
+        color: #344054;
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 0.94rem;
+        gap: 24px;
+    }
+    .nav-actions {
+        align-items: center;
+        display: flex;
+        gap: 12px;
+    }
+    .login-pill, .trial-pill {
+        border-radius: 999px;
+        display: inline-block;
+        padding: 10px 18px;
+    }
+    .login-pill {
+        background: #c8f7e4;
+        color: #111827;
+    }
+    .trial-pill {
+        background: #00d084;
+        color: #07130d;
+        font-weight: 700;
     }
     .hero {
-        background: linear-gradient(135deg, #132238 0%, #2563eb 48%, #ff4d6d 100%);
-        border-radius: 18px;
-        color: white;
-        padding: 34px 38px;
-        box-shadow: 0 18px 42px rgba(19, 34, 56, 0.24);
+        background: transparent;
+        border-radius: 0;
+        color: var(--ink);
+        padding: 28px 12px 34px;
+        text-align: center;
     }
     .hero h1 {
-        color: white;
-        font-size: clamp(2rem, 5vw, 4rem);
+        color: #111827;
+        font-size: clamp(2.7rem, 6vw, 5rem);
         line-height: 1.03;
         letter-spacing: 0;
-        margin: 0 0 12px;
+        margin: 0 auto 18px;
+        max-width: 900px;
     }
     .hero p {
-        color: rgba(255,255,255,0.92);
-        font-size: 1.08rem;
-        max-width: 820px;
-        margin: 0;
+        color: #6b7280;
+        font-size: 1.22rem;
+        line-height: 1.8;
+        max-width: 850px;
+        margin: 0 auto 28px;
+    }
+    .hero-button {
+        background: #00d084;
+        border-radius: 999px;
+        color: #07130d;
+        display: inline-block;
+        font-weight: 800;
+        padding: 18px 34px;
+        box-shadow: 0 18px 34px rgba(0, 208, 132, 0.28);
     }
     .feature-row {
         display: grid;
@@ -93,6 +169,98 @@ st.markdown(
         border-radius: 12px;
         padding: 16px 18px;
         box-shadow: 0 12px 28px rgba(19,34,56,0.08);
+    }
+    .illustration-row {
+        align-items: end;
+        display: grid;
+        gap: 28px;
+        grid-template-columns: 0.9fr 1.2fr 0.9fr;
+        margin: 28px 0 52px;
+    }
+    .illustration-card {
+        background: rgba(255,255,255,0.9);
+        border: 1px solid rgba(19,34,56,0.08);
+        border-radius: 18px;
+        box-shadow: 0 18px 38px rgba(19,34,56,0.10);
+        padding: 20px;
+    }
+    .mini-chart {
+        align-items: end;
+        display: flex;
+        gap: 10px;
+        height: 140px;
+        justify-content: center;
+        margin-top: 18px;
+    }
+    .bar {
+        background: linear-gradient(180deg, #00d084, #00a6a6);
+        border-radius: 8px 8px 3px 3px;
+        width: 34px;
+    }
+    .mention {
+        background: white;
+        border: 1px solid rgba(19,34,56,0.08);
+        border-radius: 12px;
+        box-shadow: 0 14px 28px rgba(19,34,56,0.10);
+        margin: 12px 0;
+        padding: 14px;
+    }
+    .mention-top {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+    .tag {
+        border-radius: 999px;
+        color: white;
+        font-size: 0.78rem;
+        font-weight: 800;
+        padding: 5px 9px;
+    }
+    .tag.pos { background: #00b67a; }
+    .tag.neg { background: #ff4d6d; }
+    .tag.neu { background: #667085; }
+    .section {
+        margin: 54px 0;
+    }
+    .section h2 {
+        color: #111827;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        letter-spacing: 0;
+        margin-bottom: 18px;
+    }
+    .two-col {
+        align-items: center;
+        display: grid;
+        gap: 44px;
+        grid-template-columns: 1fr 1fr;
+    }
+    .check-list {
+        color: #4b5563;
+        font-size: 1.08rem;
+        line-height: 2.1;
+    }
+    .benefit-grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 22px;
+    }
+    .benefit {
+        background: rgba(255,255,255,0.88);
+        border: 1px solid rgba(19,34,56,0.08);
+        border-radius: 16px;
+        box-shadow: 0 14px 30px rgba(19,34,56,0.08);
+        padding: 22px;
+    }
+    .benefit h3 {
+        color: #111827;
+        font-size: 1.2rem;
+        margin-top: 0;
+    }
+    .benefit p {
+        color: #667085;
     }
     .feature strong {
         color: var(--ink);
@@ -132,11 +300,13 @@ st.markdown(
         padding: 14px;
     }
     @media (max-width: 760px) {
-        .feature-row {
+        .feature-row, .illustration-row, .two-col, .benefit-grid {
             grid-template-columns: 1fr;
         }
-        .hero {
-            padding: 26px 22px;
+        .top-nav, .nav-links, .nav-actions {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 12px;
         }
     }
     </style>
@@ -293,8 +463,8 @@ def engine_status_text() -> str:
 
 
 with st.sidebar:
-    st.header("Project Console")
-    st.caption("Smart ML app for review intelligence and handwritten digit recognition.")
+    st.header("InsightPulse AI")
+    st.caption("Brand sentiment monitoring and ML-powered review intelligence.")
     st.divider()
     st.subheader("Model Status")
     assets = available_artifacts()
@@ -304,26 +474,108 @@ with st.sidebar:
     st.divider()
     st.subheader("Best For")
     st.write("Customer feedback triage")
-    st.write("ML model deployment showcase")
-    st.write("Image classification workflow")
+    st.write("Brand reputation monitoring")
+    st.write("Customer feedback analysis")
+    st.write("Visual input classification")
 
 st.markdown(
     """
+    <header class="top-nav">
+        <div class="brand"><span class="brand-mark"></span>InsightPulse</div>
+        <nav class="nav-links">
+            <span>Product</span>
+            <span>AI Solutions</span>
+            <span>Use Cases</span>
+            <span>Pricing</span>
+            <span>Resources</span>
+        </nav>
+        <div class="nav-actions">
+            <span>EN</span>
+            <span class="login-pill">Login</span>
+            <span class="trial-pill">Start Trial</span>
+        </div>
+    </header>
     <section class="hero">
-        <h1>Smart Review and Digit Recognition Studio</h1>
-        <p>A practical machine learning web app that turns movie reviews into sentiment insights and inspects handwritten digit images through an interactive classification workflow.</p>
+        <h1>AI-Driven Sentiment Intelligence</h1>
+        <p>Monitor feedback, understand audience mood, protect your reputation, and turn customer language into clear business decisions.</p>
+        <span class="hero-button">TRY THE ANALYZER</span>
     </section>
-    <div class="feature-row">
-        <div class="feature"><strong>Review Intelligence</strong><span>Classifies review tone, confidence, keywords, and follow-up priority.</span></div>
-        <div class="feature"><strong>Digit Recognition</strong><span>Accepts uploaded digit images and visualizes prediction-style scores.</span></div>
-        <div class="feature"><strong>Deployment Showcase</strong><span>Designed like a real Streamlit product with GitHub-backed cloud deployment.</span></div>
+    <div class="illustration-row">
+        <div class="illustration-card">
+            <strong>Reputation Signal</strong>
+            <p style="color:#667085;">Negative mentions are surfaced quickly so teams can respond before small issues grow.</p>
+            <div class="mini-chart">
+                <div class="bar" style="height:46px;"></div>
+                <div class="bar" style="height:72px;"></div>
+                <div class="bar" style="height:98px;"></div>
+                <div class="bar" style="height:122px;"></div>
+            </div>
+        </div>
+        <div class="illustration-card">
+            <div class="mention">
+                <div class="mention-top"><strong>Customer Review</strong><span class="tag neg">Negative</span></div>
+                <span style="color:#667085;">The upload was slow and confusing, but support replied fast.</span>
+            </div>
+            <div class="mention">
+                <div class="mention-top"><strong>Product Mention</strong><span class="tag neu">Neutral</span></div>
+                <span style="color:#667085;">Testing the new dashboard and comparing it with our old workflow.</span>
+            </div>
+            <div class="mention">
+                <div class="mention-top"><strong>Brand Feedback</strong><span class="tag pos">Positive</span></div>
+                <span style="color:#667085;">Clean interface, helpful insights, and the report is easy to share.</span>
+            </div>
+        </div>
+        <div class="illustration-card">
+            <strong>Audience Mood</strong>
+            <p style="color:#667085;">Track positive, negative, and neutral signals across your feedback pipeline.</p>
+            <div class="mini-chart">
+                <div class="bar" style="height:88px; background:#00d084;"></div>
+                <div class="bar" style="height:42px; background:#ff4d6d;"></div>
+                <div class="bar" style="height:64px; background:#667085;"></div>
+            </div>
+        </div>
     </div>
     """,
     unsafe_allow_html=True,
 )
 st.markdown(f'<div class="status-box">{engine_status_text()}</div>', unsafe_allow_html=True)
 
-overview_tab, sentiment_tab, digit_tab = st.tabs(["Overview", "Review Intelligence", "Digit Recognition"])
+st.markdown(
+    """
+    <section class="section">
+        <h2>How can teams benefit from sentiment intelligence?</h2>
+        <div class="benefit-grid">
+            <div class="benefit"><h3>Protect Reputation</h3><p>Spot negative feedback early and prioritize the conversations that need attention first.</p></div>
+            <div class="benefit"><h3>Find Market Insights</h3><p>Discover what customers praise, dislike, repeat, and compare across product experiences.</p></div>
+            <div class="benefit"><h3>Improve Service</h3><p>Give support teams a simple signal for urgency, confidence, and common complaint patterns.</p></div>
+        </div>
+    </section>
+    <section class="section two-col">
+        <div>
+            <h2>How does it work?</h2>
+            <div class="check-list">
+                <div>Positive feedback is grouped into opportunity signals.</div>
+                <div>Negative feedback is marked for faster follow-up.</div>
+                <div>Neutral feedback is kept for trend and volume tracking.</div>
+                <div>Image inputs are inspected through a classification workflow.</div>
+            </div>
+        </div>
+        <div class="illustration-card">
+            <div class="mention">
+                <div class="mention-top"><strong>Live Mention</strong><span class="tag neg">Priority</span></div>
+                <span style="color:#667085;">The new version crashes during checkout and I cannot complete my order.</span>
+            </div>
+            <div class="mention">
+                <div class="mention-top"><strong>Insight</strong><span class="tag pos">Action</span></div>
+                <span style="color:#667085;">Route to support, tag as product issue, and monitor similar phrases.</span>
+            </div>
+        </div>
+    </section>
+    """,
+    unsafe_allow_html=True,
+)
+
+overview_tab, sentiment_tab, digit_tab = st.tabs(["Product Overview", "Sentiment Analyzer", "Digit Classifier"])
 
 with overview_tab:
     st.subheader("Project Snapshot")
