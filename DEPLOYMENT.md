@@ -1,4 +1,4 @@
-# Streamlit Community Cloud Deployment
+# Sentiment and Digit Classifier Streamlit Deployment
 
 Deploy settings:
 
