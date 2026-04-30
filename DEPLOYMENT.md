@@ -1,29 +1,25 @@
-# Sentiment and Digit Classifier Streamlit Deployment
+# Deployment
 
-Deploy settings:
+This is now a Flask ML web application, not a Streamlit app.
 
-```text
-Main file path: app.py
-Python dependencies: requirements.txt
-System packages: packages.txt
-```
-
-Required model artifacts:
+## Render Settings
 
 ```text
-tokenizer.pkl
-lstm_model.h5
-cnn_model.h5
+Build command: pip install -r requirements.txt
+Start command: gunicorn app:app
 ```
 
-Place those files either in the project root or in the `models/` folder before deploying.
+The included `render.yaml` can also be used for blueprint deployment.
 
-## Steps
+## Local Run
 
-1. Push this folder to a GitHub repository.
-2. Go to Streamlit Community Cloud and create a new app from that repository.
-3. Select the branch that contains this project.
-4. Set the main file path to `app.py`.
-5. Deploy.
+```bash
+pip install -r requirements.txt
+python app.py
+```
 
-The app will open without the model files, but predictions will show a missing-file message until the artifacts are added.
+Then open:
+
+```text
+http://localhost:5000
+```

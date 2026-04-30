@@ -1,75 +1,87 @@
-# Sentiment and Digit Classifier Streamlit App
+# Real-Time Sentiment & Handwritten Digit Classifier
 
-This project deploys two machine learning workflows in one Streamlit app:
+A professional full-stack machine learning web application built with Python, Flask, HTML, CSS, and JavaScript.
 
-- IMDB movie review sentiment prediction with an LSTM model
-- Handwritten digit image classification with a CNN model
+Users can:
 
-## App files
+- Type text and get real-time sentiment prediction.
+- Draw a handwritten digit on a canvas or upload a digit image.
+- View prediction confidence, class probability charts, model explanations, and prediction history.
+
+## Tech Stack
+
+- Backend: Flask
+- Frontend: HTML, CSS, JavaScript
+- ML: Scikit-learn, TF-IDF, Logistic Regression
+- Data: Pandas, NumPy
+- Image processing: Pillow
+- Storage: SQLite
+- Deployment: Gunicorn, Render-compatible config
+
+## ML Modules
+
+### Sentiment Analysis
+
+The sentiment model is a real ML pipeline:
+
+```text
+Text preprocessing -> TF-IDF vectorization -> Logistic Regression
+```
+
+Preprocessing includes lowercasing, HTML removal, punctuation removal, stopword removal, and TF-IDF vectorization.
+
+The model predicts Positive, Negative, or Neutral sentiment.
+
+### Handwritten Digit Classification
+
+The digit classifier uses the scikit-learn handwritten digits dataset.
+
+```text
+Draw/upload image -> grayscale -> invert -> resize to 8x8 -> classify digit 0-9
+```
+
+## Project Structure
 
 ```text
 app.py
+ml_models.py
+database.py
+templates/index.html
+static/styles.css
+static/app.js
 requirements.txt
-packages.txt
-DEPLOYMENT.md
-train_and_export.py
-requirements-train.txt
+Procfile
+render.yaml
+models/
+data/
 ```
 
-## Train from Kaggle directly
-
-You do not need to manually upload the datasets. `train_and_export.py` downloads both datasets directly from Kaggle using `kagglehub`:
-
-- IMDB: `lakshmi25npathi/imdb-dataset-of-50k-movie-reviews`
-- Handwritten digits: `olafkrastovski/handwritten-digits-0-9`
-
-In Google Colab, upload `train_and_export.py`, then run:
-
-```python
-!pip install -r requirements-train.txt
-!python train_and_export.py
-```
-
-It will train both models and download:
-
-```text
-tokenizer.pkl
-lstm_model.h5
-cnn_model.h5
-```
-
-Copy those 3 files into this folder:
-
-```text
-C:\Users\Admin\Downloads\week12_streamlit
-```
-
-## Run locally
+## Run Locally
 
 ```bash
-cd C:\Users\Admin\Downloads\week12_streamlit
-.venv\Scripts\python.exe -m streamlit run app.py
+pip install -r requirements.txt
+python app.py
 ```
 
-## Deploy on Streamlit Community Cloud
-
-Upload these files to GitHub:
+Open:
 
 ```text
-app.py
-requirements.txt
-packages.txt
-tokenizer.pkl
-lstm_model.h5
-cnn_model.h5
+http://localhost:5000
 ```
 
-You can also put the three model files in `models/`.
+The app trains and saves the ML models automatically on first run.
 
-Then create a Streamlit Cloud app with:
+## API Endpoints
 
 ```text
-Main file path: app.py
+GET    /
+GET    /api/health
+POST   /api/sentiment
+POST   /api/digit
+GET    /api/history
+DELETE /api/history
 ```
 
-See `DEPLOYMENT.md` for the short deployment checklist.
+## Deploy
+
+This project includes `Procfile`, `render.yaml`, and `gunicorn`, so it can be deployed on Render or another Flask-compatible Python host.

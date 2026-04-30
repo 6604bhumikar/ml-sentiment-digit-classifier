@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Real-Time Sentiment & Handwritten Digit Classifier</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header class="nav">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span>InsightPulse ML</span>
+    </div>
+    <nav>
+      <a href="#sentiment">Sentiment</a>
+      <a href="#digit">Digit Classifier</a>
+      <a href="#history">History</a>
+      <a href="#models">Models</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Real-Time ML Web Application</p>
+        <h1>Real-Time Sentiment & Handwritten Digit Classifier</h1>
+        <p class="hero-copy">
+          A production-style Python project with a Flask API, real scikit-learn models,
+          browser-based drawing, image upload, prediction confidence, explanations, and history tracking.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#sentiment">Analyze Text</a>
+          <a class="button secondary" href="#digit">Classify Digit</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <div class="metric-card">
+          <span>Backend</span>
+          <strong>Flask API</strong>
+        </div>
+        <div class="metric-card">
+          <span>Sentiment Model</span>
+          <strong>TF-IDF + Logistic Regression</strong>
+        </div>
+        <div class="metric-card">
+          <span>Digit Model</span>
+          <strong>Scikit-learn Digits</strong>
+        </div>
+      </aside>
+    </section>
+
+    <section class="grid two">
+      <article class="panel" id="sentiment">
+        <div class="section-title">
+          <p class="eyebrow">Text Intelligence</p>
+          <h2>Real-time sentiment prediction</h2>
+        </div>
+        <textarea id="sentimentText" placeholder="Type a review, social mention, or customer message...">The dashboard is clean, fast, and very helpful for my team.</textarea>
+        <div class="result-grid">
+          <div class="result-card">
+            <span>Prediction</span>
+            <strong id="sentimentLabel">Waiting</strong>
+          </div>
+          <div class="result-card">
+            <span>Confidence</span>
+            <strong id="sentimentConfidence">0%</strong>
+          </div>
+        </div>
+        <div class="bars" id="sentimentBars"></div>
+        <p class="explanation" id="sentimentExplanation">Start typing to run the model.</p>
+        <details>
+          <summary>Model preprocessing</summary>
+          <p id="processedText">Lowercase, punctuation removal, stopword handling, then TF-IDF vectorization.</p>
+        </details>
+      </article>
+
+      <article class="panel" id="digit">
+        <div class="section-title">
+          <p class="eyebrow">Computer Vision</p>
+          <h2>Draw or upload a digit</h2>
+        </div>
+        <canvas id="digitCanvas" width="280" height="280" aria-label="Draw a digit"></canvas>
+        <div class="button-row">
+          <button id="classifyDrawing" class="button primary">Classify Drawing</button>
+          <button id="clearCanvas" class="button secondary">Clear</button>
+        </div>
+        <label class="upload">
+          Upload digit image
+          <input id="digitUpload" type="file" accept="image/*">
+        </label>
+        <div class="result-grid">
+          <div class="result-card">
+            <span>Digit</span>
+            <strong id="digitLabel">Waiting</strong>
+          </div>
+          <div class="result-card">
+            <span>Confidence</span>
+            <strong id="digitConfidence">0%</strong>
+          </div>
+        </div>
+        <div class="bars" id="digitBars"></div>
+        <p class="explanation" id="digitExplanation">Draw a digit or upload an image to classify it.</p>
+      </article>
+    </section>
+
+    <section class="grid two" id="models">
+      <article class="panel">
+        <p class="eyebrow">Explainability</p>
+        <h2>How predictions are explained</h2>
+        <p>
+          Sentiment explanations show the most influential TF-IDF terms. Digit explanations show
+          image features such as ink density, contrast, and the strongest probability class.
+        </p>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Storage</p>
+        <h2>Prediction history</h2>
+        <p>
+          Every prediction is stored in SQLite with input summary, prediction, confidence,
+          explanation, and timestamp.
+        </p>
+        <button id="refreshHistory" class="button secondary">Refresh History</button>
+      </article>
+    </section>
+
+    <section class="panel" id="history">
+      <div class="section-title">
+        <p class="eyebrow">Audit Trail</p>
+        <h2>Recent predictions</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Input</th>
+              <th>Prediction</th>
+              <th>Confidence</th>
+              <th>Explanation</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
