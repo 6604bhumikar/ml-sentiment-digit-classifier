@@ -1,6 +1,6 @@
 # Sentiment and Digit Classifier Streamlit App
 
-This project deploys two machine learning demos in one Streamlit app:
+This project deploys two machine learning workflows in one Streamlit app:
 
 - IMDB movie review sentiment prediction with an LSTM model
 - Handwritten digit image classification with a CNN model
