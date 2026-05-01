@@ -1,7 +1,9 @@
 .venv/
+.venv311/
 __pycache__/
 *.py[cod]
 *.log
 data/*.sqlite3
 models/*.joblib
 models/*_meta.joblib
+python-*.exe
